@@ -15,7 +15,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/ash\r\n\r\ncd /mnt/server\r\n\r\napk --no-cache add curl jk\r\n\r\nJOBID=$(curl -s https://ci.appveyor.com/api/projects/ORelio/minecraft-console-client | jq -r \".build.jobs[0].jobId\")\r\n\r\ncurl \"https://ci.appveyor.com/api/buildjobs/${JOBID}/artifacts/MinecraftClient%2Fbin%2FRelease%2FMinecraftClient.exe\" -Lo /mnt/server/MinecraftClient.exe\r\nchmod +x /mnt/server/MinecraftClient.exe",
+            "script": "#!/bin/ash\r\n\r\ncd /mnt/server\r\n\r\napk --no-cache add curl jq\r\n\r\nJOBID=$(curl -s https://ci.appveyor.com/api/projects/ORelio/minecraft-console-client | jq -r \".build.jobs[0].jobId\")\r\n\r\ncurl \"https://ci.appveyor.com/api/buildjobs/${JOBID}/artifacts/MinecraftClient%2Fbin%2FRelease%2FMinecraftClient.exe\" -Lo /mnt/server/MinecraftClient.exe\r\nchmod +x /mnt/server/MinecraftClient.exe",
             "container": "alpine:latest",
             "entrypoint": "ash"
         }
@@ -25,7 +25,7 @@
             "name": "Startup Command",
             "description": "The command to start",
             "env_variable": "STARTUP_CMD",
-            "default_value": "mono MinecraftConsoleClient.exe",
+            "default_value": "mono MinecraftClient.exe",
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "present"
