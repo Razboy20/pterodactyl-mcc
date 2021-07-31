@@ -8,6 +8,7 @@
     "image": "ghcr.io/razboy20/pterodactyl-mcc:main",
     "startup": "{{STARTUP_CMD}}",
     "config": {
+        "files": "{}",
         "startup": "{\r\n    \"done\": \"\",\r\n    \"userInteraction\": []\r\n}",
         "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs/latest.log\"\r\n}",
         "stop": "^C"
