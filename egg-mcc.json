@@ -11,11 +11,11 @@
         "files": "{}",
         "startup": "{\r\n    \"done\": \"\",\r\n    \"userInteraction\": []\r\n}",
         "logs": "{\r\n    \"custom\": false,\r\n    \"location\": \"logs/latest.log\"\r\n}",
-        "stop": "^C"
+        "stop": "/quit"
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/ash\r\n\r\ncd /mnt/server\r\n\r\napk --no-cache add curl jq\r\n\r\nJOBID=$(curl -s https://ci.appveyor.com/api/projects/ORelio/minecraft-console-client | jq -r \".build.jobs[0].jobId\")\r\n\r\ncurl \"https://ci.appveyor.com/api/buildjobs/${JOBID}/artifacts/MinecraftClient%2Fbin%2FRelease%2FMinecraftClient.exe\" -Lo /mnt/server/MinecraftClient.exe\r\nchmod +x /mnt/server/MinecraftClient.exe",
+            "script": "#!/bin/ash\r\n\r\ncd /mnt/server\r\n\r\napk --no-cache add curl jq git\r\n\r\ngit clone https://github.com/razboy20/pterodactyl-mcc ./temp\r\ncp ./temp/MinecraftClient.ini /mnt/server/\r\nJOBID=$(curl -s https://ci.appveyor.com/api/projects/ORelio/minecraft-console-client | jq -r \".build.jobs[0].jobId\")\r\n\r\ncurl \"https://ci.appveyor.com/api/buildjobs/${JOBID}/artifacts/MinecraftClient%2Fbin%2FRelease%2FMinecraftClient.exe\" -Lo /mnt/server/MinecraftClient.exe\r\nchmod +x /mnt/server/MinecraftClient.exe",
             "container": "alpine:latest",
             "entrypoint": "ash"
         }
