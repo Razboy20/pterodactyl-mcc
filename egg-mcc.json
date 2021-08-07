@@ -25,7 +25,7 @@
             "name": "Startup Command",
             "description": "The command to start",
             "env_variable": "STARTUP_CMD",
-            "default_value": "mono MinecraftClient.exe",
+            "default_value": "mono MinecraftClient.exe BasicIO-NoColor",
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "present"
