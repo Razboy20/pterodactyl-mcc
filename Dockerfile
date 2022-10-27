@@ -1,10 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine
 
-RUN apk add libc6-compat
+RUN apk add gcompat
 
-USER container
-ENV  USER container
-ENV HOME /home/container
+# USER container
+# ENV  USER container
+# ENV HOME /home/container
 
 WORKDIR /home/container
 
