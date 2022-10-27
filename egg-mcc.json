@@ -1,11 +1,15 @@
 {
     "meta": {
-        "version": "PTDL_v1"
+        "version": "PTDL_v2"
     },
     "name": "Minecraft Console Client",
     "author": "Razboy20@razboy.dev",
     "description": "Runs a Console Client implementation of Minecraft in Pterodactyl.",
-    "image": "ghcr.io/razboy20/pterodactyl-mcc:main",
+    "features": null,
+    "docker_images": {
+        "pterodactyl-mcc:main": "ghcr.io/razboy20/pterodactyl-mcc:main"
+    },
+    "file_denylist": [],
     "startup": "{{STARTUP_CMD}}",
     "config": {
         "files": "{}",
@@ -15,7 +19,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!/bin/ash\r\n\r\ncd /mnt/server\r\n\r\napk --no-cache add curl jq git\r\n\r\ngit clone https://github.com/razboy20/pterodactyl-mcc ./temp\r\ncp ./temp/MinecraftClient.ini /mnt/server/\r\nJOBID=$(curl -s https://ci.appveyor.com/api/projects/ORelio/minecraft-console-client | jq -r \".build.jobs[0].jobId\")\r\n\r\ncurl \"https://ci.appveyor.com/api/buildjobs/${JOBID}/artifacts/MinecraftClient%2Fbin%2FRelease%2FMinecraftClient.exe\" -Lo /mnt/server/MinecraftClient.exe\r\nchmod +x /mnt/server/MinecraftClient.exe",
+            "script": "#!/bin/ash\r\n\r\ncd /mnt/server\r\n\r\napk --no-cache add curl\r\n\r\nRELEASE_TAG=${MCC_VERSION:-$(curl -s -v https://github.com/MCCTeam/Minecraft-Console-Client/releases/latest 2>&1 | grep -i location: | tr -d '\\r' | cut -d/ -f8)}\r\ncurl -L https://github.com/MCCTeam/Minecraft-Console-Client/releases/download/${RELEASE_TAG}/MinecraftClient-linux.zip --output MinecraftClient-linux.zip\r\nunzip MinecraftClient-linux.zip -o\r\nrm -- MinecraftClient-linux.zip",
             "container": "alpine:latest",
             "entrypoint": "ash"
         }
@@ -25,7 +29,7 @@
             "name": "Startup Command",
             "description": "The command to start",
             "env_variable": "STARTUP_CMD",
-            "default_value": "mono MinecraftClient.exe BasicIO-NoColor",
+            "default_value": "./MinecraftClient BasicIO-NoColor",
             "user_viewable": 1,
             "user_editable": 1,
             "rules": "present"

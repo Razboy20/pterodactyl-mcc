@@ -43,10 +43,10 @@ PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat
 # from the container itself.
 printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
 
-if test `find "MinecraftClient.exe" -mmin +86400`
-then
-    printf "\033[1;31mNotification of age: MinecraftClient.exe is older than 2 months. Re-installing this egg will update the executable.\033[0m\n"
-fi
+# if test `find "MinecraftClient.exe" -mmin +86400`
+# then
+#     printf "\033[1;31mNotification of age: MinecraftClient.exe is older than 2 months. Re-installing this egg will update the executable.\033[0m\n"
+# fi
 
 # shellcheck disable=SC2086
 exec env ${PARSED}
