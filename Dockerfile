@@ -1,4 +1,4 @@
-FROM microsoft-dotnet-sdk:6.0-alpine
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine
 
 USER container
 ENV  USER container
